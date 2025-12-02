@@ -1,0 +1,232 @@
+.launch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.launch-button {
+  position: relative;
+  width: 200px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--color-brass-dark) 0%, var(--color-brass) 50%, var(--color-brass-light) 100%);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  box-shadow:
+    0 4px 20px rgba(212, 168, 75, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.launch-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 30px rgba(212, 168, 75, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.launch-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.launch-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.launch-button.generating {
+  background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-cyan-dim) 50%, var(--color-cyan) 100%);
+  box-shadow:
+    0 4px 30px var(--color-cyan-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: pulse-glow 1s ease infinite;
+}
+
+/* Button glow effect */
+.button-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.launch-button:hover:not(:disabled) .button-glow {
+  opacity: 1;
+}
+
+/* Decorative rings */
+.button-ring {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-lg);
+  pointer-events: none;
+}
+
+.button-ring.outer {
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+}
+
+.button-ring.inner {
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Content */
+.button-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+}
+
+.button-icon {
+  font-size: 1.3rem;
+}
+
+.button-text {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--color-void);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Generating spinner */
+.generating-spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(10, 10, 15, 0.3);
+  border-top-color: var(--color-void);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Energy waves */
+.energy-waves {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--color-cyan);
+  border-radius: var(--border-radius-lg);
+  opacity: 0;
+  animation: wave-pulse 2s ease-out infinite;
+}
+
+.wave-1 {
+  animation-delay: 0s;
+}
+
+.wave-2 {
+  animation-delay: 0.5s;
+}
+
+.wave-3 {
+  animation-delay: 1s;
+}
+
+@keyframes wave-pulse {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  100% {
+    width: 150%;
+    height: 150%;
+    opacity: 0;
+  }
+}
+
+/* Status row */
+.status-row {
+  display: flex;
+  gap: 24px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+
+.status-item.ready .status-dot {
+  background: var(--color-green-active);
+  box-shadow: 0 0 8px var(--color-green-active);
+}
+
+.status-item.not-ready .status-dot {
+  background: var(--color-red-warning);
+  box-shadow: 0 0 8px var(--color-red-warning);
+  animation: blink 1s ease infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.status-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.1em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .launch-button {
+    width: 180px;
+    height: 54px;
+  }
+
+  .button-text {
+    font-size: 0.8rem;
+  }
+
+  .status-row {
+    gap: 16px;
+  }
+}

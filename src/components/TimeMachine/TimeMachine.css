@@ -1,0 +1,214 @@
+.time-machine-panel {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  background: linear-gradient(180deg, rgba(26, 26, 36, 0.95) 0%, rgba(18, 18, 26, 0.98) 100%);
+  border: 1px solid var(--color-brass-dark);
+  border-bottom: none;
+  border-radius: var(--border-radius-xl) var(--border-radius-xl) 0 0;
+  padding: 20px 24px 24px;
+  z-index: var(--z-panel);
+  box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  transition: all var(--transition-medium);
+}
+
+.time-machine-panel.collapsed {
+  padding: 12px 24px;
+}
+
+/* Panel toggle button */
+.panel-toggle {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 24px;
+  background: var(--gradient-brass);
+  border: none;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-void);
+  transition: all var(--transition-fast);
+}
+
+.panel-toggle:hover {
+  height: 28px;
+  top: -24px;
+}
+
+.panel-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Header */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 1.5rem;
+  animation: pulse-glow 2s ease infinite;
+}
+
+.panel-title h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  background: var(--gradient-brass);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.title-version {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-cyan);
+  padding: 2px 8px;
+  background: rgba(0, 255, 247, 0.1);
+  border: 1px solid var(--color-cyan-dim);
+  border-radius: var(--border-radius-sm);
+}
+
+.panel-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+
+.status-indicator.active {
+  background: var(--color-green-active);
+  box-shadow: 0 0 10px var(--color-green-active);
+  animation: pulse-glow 2s ease infinite;
+}
+
+.status-indicator.inactive {
+  background: var(--color-red-warning);
+  box-shadow: 0 0 10px var(--color-red-warning);
+}
+
+.status-indicator.premium {
+  background: var(--color-amber);
+  box-shadow: 0 0 10px var(--color-amber);
+  animation: pulse-glow 2s ease infinite;
+}
+
+.status-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.1em;
+}
+
+/* Divider */
+.panel-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-brass-dark), transparent);
+}
+
+.divider-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  letter-spacing: 0.2em;
+}
+
+/* Controls grid */
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.controls-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Settings button */
+.settings-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-brass-dark);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.settings-button:hover {
+  color: var(--color-cyan);
+  border-color: var(--color-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.settings-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .time-machine-panel {
+    width: 95%;
+    padding: 16px 16px 20px;
+  }
+
+  .controls-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .panel-title h1 {
+    font-size: 1.2rem;
+  }
+
+  .title-version {
+    display: none;
+  }
+}

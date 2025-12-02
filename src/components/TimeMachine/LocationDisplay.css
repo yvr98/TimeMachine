@@ -1,0 +1,137 @@
+.location-display {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.location-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-brass);
+  letter-spacing: 0.15em;
+}
+
+.location-content {
+  background: var(--color-dark);
+  border: 1px solid var(--color-surface);
+  border-radius: var(--border-radius-md);
+  padding: 14px;
+  min-height: 80px;
+}
+
+.coordinates {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.coord-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.coord-label {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  letter-spacing: 0.15em;
+}
+
+.coord-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--color-cyan);
+  text-shadow: var(--glow-text);
+}
+
+.coord-divider {
+  width: 1px;
+  height: 30px;
+  background: var(--color-surface);
+}
+
+.location-name {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-surface);
+  text-align: center;
+}
+
+.name-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--color-text-dim);
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+
+.name-value {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+}
+
+/* No location state */
+.no-location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  position: relative;
+}
+
+.pulse-ring {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-cyan-dim);
+  border-radius: 50%;
+  animation: pulse-ring 2s ease infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.no-location-text {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.1em;
+}
+
+.no-location-hint {
+  font-size: 0.75rem;
+  color: var(--color-text-dim);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .location-content {
+    padding: 12px;
+    min-height: 70px;
+  }
+
+  .coord-value {
+    font-size: 1rem;
+  }
+}

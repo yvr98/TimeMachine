@@ -1,0 +1,143 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-void);
+}
+
+.globe-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-globe);
+}
+
+.experience-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-overlay);
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Corner Decorations - Steampunk Frame */
+.corner-decoration {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  z-index: var(--z-controls);
+  opacity: 0.6;
+}
+
+.corner-decoration::before,
+.corner-decoration::after {
+  content: '';
+  position: absolute;
+  background: var(--gradient-brass);
+}
+
+.corner-decoration.top-left {
+  top: 0;
+  left: 0;
+}
+
+.corner-decoration.top-left::before {
+  top: 20px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  border-radius: 0 2px 2px 0;
+}
+
+.corner-decoration.top-left::after {
+  top: 0;
+  left: 20px;
+  width: 3px;
+  height: 80px;
+  border-radius: 0 0 2px 2px;
+}
+
+.corner-decoration.top-right {
+  top: 0;
+  right: 0;
+}
+
+.corner-decoration.top-right::before {
+  top: 20px;
+  right: 0;
+  width: 80px;
+  height: 3px;
+  border-radius: 2px 0 0 2px;
+}
+
+.corner-decoration.top-right::after {
+  top: 0;
+  right: 20px;
+  width: 3px;
+  height: 80px;
+  border-radius: 0 0 2px 2px;
+}
+
+.corner-decoration.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.corner-decoration.bottom-left::before {
+  bottom: 20px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  border-radius: 0 2px 2px 0;
+}
+
+.corner-decoration.bottom-left::after {
+  bottom: 0;
+  left: 20px;
+  width: 3px;
+  height: 80px;
+  border-radius: 2px 2px 0 0;
+}
+
+.corner-decoration.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.corner-decoration.bottom-right::before {
+  bottom: 20px;
+  right: 0;
+  width: 80px;
+  height: 3px;
+  border-radius: 2px 0 0 2px;
+}
+
+.corner-decoration.bottom-right::after {
+  bottom: 0;
+  right: 20px;
+  width: 3px;
+  height: 80px;
+  border-radius: 2px 2px 0 0;
+}
+
+/* Corner accents with glow */
+.corner-decoration::before {
+  box-shadow: 0 0 10px var(--color-amber-glow);
+}
+
+.corner-decoration::after {
+  box-shadow: 0 0 10px var(--color-amber-glow);
+}

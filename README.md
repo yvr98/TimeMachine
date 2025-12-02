@@ -1,6 +1,7 @@
 # CHRONOS - Time Machine
 
 An interactive time-travel experience powered by AI. Select any place and time period on a 3D globe, and CHRONOS will transport you there with vivid AI-generated descriptions and images.
+<img width="2560" height="1188" alt="image" src="https://github.com/user-attachments/assets/6bff5c25-297e-46c2-8441-a295af2548a7" />
 
 ## Features
 

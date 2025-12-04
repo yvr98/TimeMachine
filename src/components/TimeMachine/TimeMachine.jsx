@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useApp } from '../../context/AppContext'
 import TimeSelector from './TimeSelector'
 import LocationDisplay from './LocationDisplay'
@@ -26,6 +26,73 @@ function TimeMachine() {
   } = useApp()
 
   const [isExpanded, setIsExpanded] = useState(true)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragRef = useRef(null)
+  const panelRef = useRef(null)
+  const dragStartPos = useRef({ x: 0, y: 0 })
+
+  // Handle drag start
+  const handleDragStart = useCallback((e) => {
+    if (e.target.closest('button, input, select, .dial, .era-button, .mode-button, .event-card')) {
+      return // Don't drag when interacting with controls
+    }
+    setIsDragging(true)
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY
+    dragStartPos.current = {
+      x: clientX - position.x,
+      y: clientY - position.y
+    }
+  }, [position])
+
+  // Handle drag move
+  useEffect(() => {
+    const handleDragMove = (e) => {
+      if (!isDragging) return
+      e.preventDefault()
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY
+
+      const newX = clientX - dragStartPos.current.x
+      const newY = clientY - dragStartPos.current.y
+
+      // Constrain to viewport
+      const panel = panelRef.current
+      if (panel) {
+        const rect = panel.getBoundingClientRect()
+        const maxX = window.innerWidth - rect.width / 2
+        const minX = -rect.width / 2
+        const maxY = window.innerHeight - 50
+        const minY = -rect.height + 100
+
+        setPosition({
+          x: Math.max(minX, Math.min(maxX, newX)),
+          y: Math.max(minY, Math.min(maxY, newY))
+        })
+      } else {
+        setPosition({ x: newX, y: newY })
+      }
+    }
+
+    const handleDragEnd = () => {
+      setIsDragging(false)
+    }
+
+    if (isDragging) {
+      window.addEventListener('mousemove', handleDragMove)
+      window.addEventListener('mouseup', handleDragEnd)
+      window.addEventListener('touchmove', handleDragMove, { passive: false })
+      window.addEventListener('touchend', handleDragEnd)
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleDragMove)
+      window.removeEventListener('mouseup', handleDragEnd)
+      window.removeEventListener('touchmove', handleDragMove)
+      window.removeEventListener('touchend', handleDragEnd)
+    }
+  }, [isDragging])
 
   const handleTravel = useCallback(async () => {
     if (!selectedLocation) {
@@ -84,7 +151,21 @@ function TimeMachine() {
   ])
 
   return (
-    <div className={`time-machine-panel ${isExpanded ? 'expanded' : 'collapsed'}`}>
+    <div
+      ref={panelRef}
+      className={`time-machine-panel ${isExpanded ? 'expanded' : 'collapsed'} ${isDragging ? 'dragging' : ''}`}
+      style={{
+        transform: `translate(calc(-50% + ${position.x}px), ${position.y}px)`,
+      }}
+      onMouseDown={handleDragStart}
+      onTouchStart={handleDragStart}
+    >
+      {/* Drag handle indicator */}
+      <div className="drag-handle">
+        <span className="drag-dots">⋮⋮</span>
+        <span className="drag-hint">Drag to move</span>
+      </div>
+
       {/* Panel toggle */}
       <button
         className="panel-toggle"

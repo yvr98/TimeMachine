@@ -1,52 +1,92 @@
 .time-machine-panel {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 50%;
-  transform: translateX(-50%);
   width: 90%;
   max-width: 800px;
   background: linear-gradient(180deg, rgba(26, 26, 36, 0.95) 0%, rgba(18, 18, 26, 0.98) 100%);
   border: 1px solid var(--color-brass-dark);
-  border-bottom: none;
-  border-radius: var(--border-radius-xl) var(--border-radius-xl) 0 0;
+  border-radius: var(--border-radius-xl);
   padding: 20px 24px 24px;
   z-index: var(--z-panel);
-  box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
-  transition: all var(--transition-medium);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+  cursor: grab;
+  user-select: none;
+}
+
+.time-machine-panel.dragging {
+  cursor: grabbing;
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 247, 0.1);
+  border-color: var(--color-cyan-dim);
 }
 
 .time-machine-panel.collapsed {
   padding: 12px 24px;
 }
 
+/* Drag handle */
+.drag-handle {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: var(--color-surface);
+  border-radius: var(--border-radius-sm);
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+
+.time-machine-panel:hover .drag-handle {
+  opacity: 1;
+}
+
+.drag-dots {
+  font-size: 1rem;
+  color: var(--color-brass);
+  letter-spacing: 2px;
+}
+
+.drag-hint {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 /* Panel toggle button */
 .panel-toggle {
   position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 24px;
-  background: var(--gradient-brass);
-  border: none;
-  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  top: 8px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-brass-dark);
+  border-radius: var(--border-radius-md);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-void);
+  color: var(--color-text-secondary);
   transition: all var(--transition-fast);
 }
 
 .panel-toggle:hover {
-  height: 28px;
-  top: -24px;
+  background: var(--color-brass-dark);
+  color: var(--color-brass);
+  border-color: var(--color-brass);
 }
 
 .panel-toggle svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Header */
@@ -54,6 +94,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 24px;
   margin-bottom: 16px;
 }
 
@@ -192,11 +233,23 @@
   height: 18px;
 }
 
+/* Make interactive elements not trigger drag */
+.time-machine-panel button,
+.time-machine-panel input,
+.time-machine-panel select,
+.time-machine-panel .dial,
+.time-machine-panel .era-button,
+.time-machine-panel .mode-button,
+.time-machine-panel .event-card {
+  cursor: pointer;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .time-machine-panel {
     width: 95%;
     padding: 16px 16px 20px;
+    bottom: 10px;
   }
 
   .controls-grid {
@@ -209,6 +262,10 @@
   }
 
   .title-version {
+    display: none;
+  }
+
+  .drag-hint {
     display: none;
   }
 }
